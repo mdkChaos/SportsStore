@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SportsStore.Models;
+using SportsStore.Models.ViewModels;
 using System.Linq;
 
 namespace SportsStore.Controllers
@@ -14,9 +15,19 @@ namespace SportsStore.Controllers
         }
 
         public ViewResult List(int productPage = 1) => View(
-            _repository.Products
-            .OrderBy(p => p.ProductID)
-            .Skip((productPage - 1) * pageSize)
-            .Take(pageSize));
+            new ProductsListViewModel
+            {
+                Products = _repository.Products
+                    .OrderBy(p => p.ProductID)
+                    .Skip((productPage - 1) * pageSize)
+                    .Take(pageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = productPage,
+                    ItemsPerPage = pageSize,
+                    TotalItems = _repository.Products.Count()
+                }
+            }
+        );
     }
 }
