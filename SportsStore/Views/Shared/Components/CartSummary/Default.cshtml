@@ -5,7 +5,7 @@
     {
         <small class="navbar-text">
             <b>Твоя корзина:</b>
-            @Model.Lines.Sum(x => x.Quantity) item(s)
+            @Model.Lines.Sum(x => x.Quantity) шт /
             @Model.ComputeTotalValue().ToString("c")
         </small>
     }
