@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 using SportsStore.Models;
 using SportsStore.Models.ViewModels;
-using SportsStore.Infrastructure;
 using System.Linq;
 
 namespace SportsStore.Controllers
@@ -10,9 +8,11 @@ namespace SportsStore.Controllers
     public class CartController : Controller
     {
         private IProductRepository _repository;
-        public CartController(IProductRepository repository)
+        private Cart _cart;
+        public CartController(IProductRepository repository, Cart cartService)
         {
             _repository = repository;
+            _cart = cartService;
         }
 
         public ViewResult Index(string returnUrl)
@@ -30,9 +30,7 @@ namespace SportsStore.Controllers
                 .FirstOrDefault(p => p.ProductID == productId);
             if (product != null)
             {
-                Cart cart = GetCart();
-                cart.AddItem(product, 1);
-                SaveCart(cart);
+                _cart.AddItem(product, 1);
             }
             return RedirectToAction("Index", new { returnUrl });
         }
@@ -43,19 +41,9 @@ namespace SportsStore.Controllers
                 .FirstOrDefault(p => p.ProductID == productId);
             if (product != null)
             {
-                Cart cart = GetCart();
-                cart.RemoveLine(product);
-                SaveCart(cart);
+                _cart.RemoveLine(product);
             }
             return RedirectToAction("Index", new { returnUrl });
         }
-
-        private Cart GetCart()
-        {
-            Cart cart = HttpContext.Session.GetJson<Cart>("Cart") ?? new Cart();
-            return cart;
-        }
-
-        private void SaveCart(Cart cart) => HttpContext.Session.SetJson("Cart", cart);
     }
 }
