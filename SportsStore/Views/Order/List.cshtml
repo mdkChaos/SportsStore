@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Order>
+
+@{ 
+    ViewBag.Title = "Заказы";
+    Layout = "_AdminLayout";
+}
+@if (Model.Count() > 0)
+{
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Название</th>
+            <th>Почтовый индекс</th>
+            <th colspan="2">Детали</th>
+            <th></th>
+        </tr>
+        @foreach (Order order in Model)
+        {
+            <tr>
+                <td>@order.Name</td>
+                <td>@order.Zip</td>
+                <th>Товар</th>
+                <th>Количество</th>
+                <td>
+                    <form asp-action="MarkShipped" method="post">
+                        <input type="hidden" name="orderId" value="@order.OrderID" />
+                        <button type="submit" class="btn btn-sm btn-danger">Отправка</button>
+                    </form>
+                </td>
+            </tr>
+            @foreach (CartLine line in order.Lines)
+            {
+                <tr>
+                    <td colspan="2"></td>
+                    <td>@line.Product.Name</td>
+                    <td>@line.Quantity</td>
+                    <td></td>
+                </tr>
+            }
+        }
+    </table>
+}
+else
+{
+    <div class="text-center">Нет отгруженных заказов</div>
+}
