@@ -103,10 +103,10 @@ namespace SportsStore.Tests
             Product product = new Product { Name = "Test" };
 
             //Act - попытка сохранить товар
-            IActionResult result = target.Edit(product);
+            IActionResult result = target.Edit(product).Result;
 
             //Assert - проверка того, что к хранилищу было произведено обращение
-            mock.Verify(m => m.SaveProduct(product));
+            mock.Verify(m => m.SaveProductAsync(product));
 
             //Assert - проверка, что типом результата является перенаправление
             Assert.IsType<RedirectToActionResult>(result);
@@ -129,10 +129,10 @@ namespace SportsStore.Tests
             target.ModelState.AddModelError("error", "error");
 
             //Act - попытка сохранить товар
-            IActionResult result = target.Edit(product);
+            IActionResult result = target.Edit(product).Result;
 
             //Assert - проверка того, что к хранилищу было произведено обращение
-            mock.Verify(m => m.SaveProduct(It.IsAny<Product>()), Times.Never());
+            mock.Verify(m => m.SaveProductAsync(It.IsAny<Product>()), Times.Never());
 
             //Assert - проверка типа результата метода
             Assert.IsType<ViewResult>(result);
@@ -161,7 +161,7 @@ namespace SportsStore.Tests
 
             //Assert - проверка того, что был вызван метод удаления
             //в хранилище с корректным объектом Product
-            mock.Verify(m => m.DeleteProduct(prod.ProductID));
+            mock.Verify(m => m.DeleteProductAsync(prod.ProductID));
         }
 
         private T GetViewModel<T>(IActionResult result) where T : class

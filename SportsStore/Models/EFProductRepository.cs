@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 
 namespace SportsStore.Models
 {
@@ -11,11 +12,11 @@ namespace SportsStore.Models
         }
         public IQueryable<Product> Products => _context.Products;
 
-        public void SaveProduct(Product product)
+        public async Task SaveProductAsync(Product product)
         {
             if (product.ProductID == 0)
             {
-                _context.Products.Add(product);
+                await _context.Products.AddAsync(product);
             }
             else
             {
@@ -29,17 +30,17 @@ namespace SportsStore.Models
                     dbEntry.Category = product.Category;
                 }
             }
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public Product DeleteProduct(int productID)
+        public async Task<Product> DeleteProductAsync(int productID)
         {
             Product dbEntry = _context.Products
                 .FirstOrDefault(p => p.ProductID == productID);
             if (dbEntry != null)
             {
                 _context.Products.Remove(dbEntry);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             return dbEntry;
         }

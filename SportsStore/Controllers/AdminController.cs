@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SportsStore.Models;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SportsStore.Controllers
 {
@@ -17,11 +18,11 @@ namespace SportsStore.Controllers
         public ViewResult Edit(int productId) => View(_repository.Products.FirstOrDefault(p => p.ProductID == productId));
 
         [HttpPost]
-        public IActionResult Edit(Product product)
+        public async Task<IActionResult> Edit(Product product)
         {
             if (ModelState.IsValid)
             {
-                _repository.SaveProduct(product);
+                await _repository.SaveProductAsync(product);
                 TempData["message"] = $"{product.Name} был сохранён";
                 return RedirectToAction("Index");
             }
@@ -36,7 +37,7 @@ namespace SportsStore.Controllers
         [HttpPost]
         public IActionResult Delete(int productId)
         {
-            Product deletedProduct = _repository.DeleteProduct(productId);
+            Product deletedProduct = _repository.DeleteProductAsync(productId).Result;
             if (deletedProduct != null)
             {
                 TempData["message"] = $"{deletedProduct.Name} был удалён";

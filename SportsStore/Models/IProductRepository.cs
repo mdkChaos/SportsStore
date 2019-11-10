@@ -1,11 +1,12 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 
 namespace SportsStore.Models
 {
     public interface IProductRepository
     {
         IQueryable<Product> Products { get; }
-        void SaveProduct(Product product);
-        Product DeleteProduct(int productID);
+        Task SaveProductAsync(Product product);
+        Task<Product> DeleteProductAsync(int productID);
     }
 }

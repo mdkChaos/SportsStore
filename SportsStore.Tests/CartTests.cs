@@ -79,8 +79,8 @@ namespace SportsStore.Tests
         public void Calculate_Cart_Total()
         {
             //Arrange - creating multiple test items
-            Product p1 = new Product { ProductID = 1, Name = "P1", Price = 100M };
-            Product p2 = new Product { ProductID = 2, Name = "P2", Price = 50M };
+            Product p1 = new Product { ProductID = 1, Name = "P1", Price = 100 };
+            Product p2 = new Product { ProductID = 2, Name = "P2", Price = 50 };
 
             //Arrange - creating new cart
             Cart target = new Cart();
@@ -92,15 +92,15 @@ namespace SportsStore.Tests
             decimal result = target.ComputeTotalValue();
 
             //Assert
-            Assert.Equal(450M, result);
+            Assert.Equal(450, result);
         }
 
         [Fact]
         public void Can_Clear_Contents()
         {
             //Arrange - creating multiple test items
-            Product p1 = new Product { ProductID = 1, Name = "P1", Price = 100M };
-            Product p2 = new Product { ProductID = 2, Name = "P2", Price = 50M };
+            Product p1 = new Product { ProductID = 1, Name = "P1", Price = 100 };
+            Product p2 = new Product { ProductID = 2, Name = "P2", Price = 50 };
 
             //Arrange - creating new cart
             Cart target = new Cart();

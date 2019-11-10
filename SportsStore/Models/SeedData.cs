@@ -26,21 +26,21 @@ namespace SportsStore.Models
                         Name = "Lifejacket",
                         Description = "Protective and fashionable",
                         Category = "Watersports",
-                        Price = 48.95m
+                        Price = 48.95M
                     },
                     new Product
                     {
                         Name = "Soccer Ball",
                         Description = "FIFA-approved size and weight",
                         Category = "Soccer",
-                        Price = 19.50m
+                        Price = 19.50M
                     },
                     new Product
                     {
                         Name = "Corner Flags",
                         Description = "Give your playing field a professional touch",
                         Category = "Soccer",
-                        Price = 34.95m
+                        Price = 34.95M
                     },
                     new Product
                     {
@@ -61,7 +61,7 @@ namespace SportsStore.Models
                         Name = "Unsteady Chair",
                         Description = "Secretly give your opponent a disadvantage",
                         Category = "Chess",
-                        Price = 29.95m
+                        Price = 29.95M
                     },
                     new Product
                     {
