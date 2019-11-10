@@ -16,11 +16,8 @@
             <h4>@ViewBag.Title</h4>
         </div>
         <div class="col-2">
-            <a class="btn btn-sm btn-primary" asp-action="Logout" asp-controller="Account">Log Out</a>
+            <a class="btn btn-sm btn-primary" asp-action="Logout" asp-controller="Account">Выход</a>
         </div>
-    </div>
-    <div class="bg-info p-2">
-        <h4>@ViewBag.Title</h4>
     </div>
     @if (TempData["message"] != null)
     {
